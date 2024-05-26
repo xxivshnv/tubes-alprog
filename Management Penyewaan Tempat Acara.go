@@ -51,6 +51,10 @@ func main() {
 }
 
 func loginOrRegister() string {
+	/*
+ 	IS : 	-
+	FS : 	Mengembalikan string "login" atau "register" sesuai dengan pilihan user ketika mengisi variable userChoice
+ 	*/
 	var userChoice int
 	fmt.Println("Masukan angka :")
 	fmt.Println("1 untuk login")
@@ -58,7 +62,6 @@ func loginOrRegister() string {
 	fmt.Print("pilihan : ")
 	fmt.Scan(&userChoice)
 	fmt.Println("")
-
 	if userChoice == 1 {
 		return "login"
 	} else if userChoice == 2 {
@@ -69,7 +72,12 @@ func loginOrRegister() string {
 	}
 }
 
-func login(dataUser tabUserAcc, ndataUser int, currentUserClass *string, currentIndexAcc *int) {
+func login(dataUser tabUserAcc, nDataUser int, currentUserClass *string, currentIndexAcc *int) {
+	/*
+ 	IS : 	variabel publik dataUser dan nDataUser yang menyimpan daftar akun yang sudah terdaftar di aplikasi dan jumlah akun yang sudah terdaftar di aplikasi
+	     	alamat variabel public currentUserClass dan currentIndexAcc yang menyimpan user class dan index dari akun yang akan masuk
+	FS : 	mengubah variabel publik currentUserClass dan currentIndexAcc sesuai dengan user class dan index dari akun yang berhasil masuk (login)
+ 	*/
 	var username, password string
 	var found bool = false
 	fmt.Println("Login. Silahkan masukan data.")
@@ -77,8 +85,8 @@ func login(dataUser tabUserAcc, ndataUser int, currentUserClass *string, current
 	fmt.Scan(&username)
 	fmt.Print("password : ")
 	fmt.Scan(&password)
-
-	for i := 0; i < ndataUser; i++ {
+	// Loop untuk cek apakah ada akun dengan username dan password yang sesuai dengan input dari user
+	for i := 0; i < nDataUser; i++ {
 		if dataUser[i].userName == username && dataUser[i].password == password {
 			*currentUserClass = dataUser[i].userClass
 			*currentIndexAcc = i
@@ -87,14 +95,19 @@ func login(dataUser tabUserAcc, ndataUser int, currentUserClass *string, current
 			break
 		}
 	}
-
 	if found == false {
 		fmt.Println("\n\nAkun tidak ditemukan. Silahkan ulangi.")
-		login(dataUser, ndataUser, currentUserClass, currentIndexAcc)
+		login(dataUser, nDataUser, currentUserClass, currentIndexAcc)
 	}
 }
 
-func register(dataUser *tabUserAcc, ndataUser *int, currentUserClass *string, currentIndexAcc *int) {
+func register(dataUser *tabUserAcc, nDataUser *int, currentUserClass *string, currentIndexAcc *int) {
+	/*
+	IS :	alamat variabel publik dataUser dan nDataUser yang menyimpan daftar akun yang sudah terdaftar di aplikasi dan jumlah akun yang sudah terdaftar di aplikasi.
+ 	     	alamat variabel public currentUserClass dan currentIndexAcc yang menyimpan user class dan index dari akun yang akan masuk.
+ 	FS : 	memasukan akun baru dengan username dan password sesuai dengan masukan dari user kedalam variabel publik dataUser dan menambah nDataUser dengan 1
+  	     	mengubah variabel publik currentUserClass dan currentIndexAcc sesuai dengan user class dan index dari akun baru didaftarkan
+  	*/
 	var username, password string
 	var found bool = false
 	fmt.Println("Register. Silahkan masukan data.")
@@ -102,32 +115,36 @@ func register(dataUser *tabUserAcc, ndataUser *int, currentUserClass *string, cu
 	fmt.Scan(&username)
 	fmt.Print("password : ")
 	fmt.Scan(&password)
-
-	for i := 0; i < *ndataUser; i++ {
+	//Loop untuk cek apakah username sudah dipakai atau belum
+	for i := 0; i < *nDataUser; i++ {
 		if dataUser[i].userName == username {
 			found = true
 			break
 		}
 	}
-
 	if found == true {
 		fmt.Println("\n\nUsername sudah dipakai. Silahkan ulangi.")
-		register(dataUser, ndataUser, currentUserClass, currentIndexAcc)
+		register(dataUser, nDataUser, currentUserClass, currentIndexAcc)
 	} else {
 		newUser := userAcc{
 			userName:  username,
 			password:  password,
 			userClass: "pelanggan",
 		}
-		dataUser[*ndataUser] = newUser
-		*ndataUser++
+		dataUser[*nDataUser] = newUser
+		*nDataUser++
 		*currentUserClass = newUser.userClass
-		*currentIndexAcc = *ndataUser - 1
+		*currentIndexAcc = *nDataUser - 1
 		fmt.Println("Akun berhasil register")
 	}
 }
 
 func Logout(currentIndexAcc *int, currentUserClass *string) {
+	/*
+	IS :	alamat variabel public currentUserClass dan currentIndexAcc yang menyimpan user class dan index dari akun yang akan masuk.
+	FS :	menyimpan -1 kedalam currentIndexAcc yang berarti tidak ada akun yang sedang masuk (login)
+ 		menyimpan "0" kedalam currentUserClass yang berarti tidak ada user class
+ 	*/
 	*currentIndexAcc = -1
 	*currentUserClass = "0"
 }
@@ -144,7 +161,6 @@ func testingPurpose(dataTempat *tabTempat, dataUser *tabUserAcc, nDataTempat *in
 		userClass: "manajer",
 	}
 	*nDataUser = 2 // Corrected parameter
-
 	dataTempat[0] = iTempat{
 		namaTempat:        "hotel indonesia",
 		lokasiTempat:      "jakarta",
@@ -173,6 +189,11 @@ func testingPurpose(dataTempat *tabTempat, dataUser *tabUserAcc, nDataTempat *in
 }
 
 func ConnectedAccountTest(dataUser tabUserAcc, nDataUser int, currentUserClass string, currentIndexAcc int) {
+	/*
+	IS :	variabel publik dataUser dan nDataUser yang menyimpan daftar akun yang sudah terdaftar di aplikasi dan jumlah akun yang sudah terdaftar di aplikasi.
+ 	     	variabel public currentUserClass dan currentIndexAcc yang menyimpan user class dan index dari akun yang akan masuk.
+	FS :	menampilkan nilai dari variabel dataUser, nDataUserAcc, currentUserClass, currentIndexAcc
+ 	*/
 	fmt.Println("currentIndexAcc : ", currentIndexAcc)
 	fmt.Println("dataUser[currentIndexAcc].userName :", dataUser[currentIndexAcc].userName)
 	fmt.Println("dataUser[currentIndexAcc].password :", dataUser[currentIndexAcc].password)
@@ -182,7 +203,13 @@ func ConnectedAccountTest(dataUser tabUserAcc, nDataUser int, currentUserClass s
 
 // FITUR PELANGGAN // FITUR PELANGGAN // FITUR PELANGGAN // FITUR PELANGGAN // FITUR PELANGGAN // FITUR PELANGGAN // FITUR PELANGGAN //
 
+
 func cariTempat(dataTempat tabTempat, nDataTempat int) int {
+	/*
+	IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+	FS : 	memanggil fungsi cariDenganNama atau cariDenganLokasi atau cariDenganTempat berdasarkan pilihan user dan menyimpan kedalam hasil fungsi kedalam variabel indexTempat
+ 		mengembalikan nilai variabe indexTempat
+ 	*/
 	var userChoice int
 	var indexTempat int
 	fmt.Println("pilih metode pencarian. ketik : ")
@@ -258,21 +285,17 @@ func fiturSewaTempat(dataTempat tabTempat, nDataTempat int) {
 		fmt.Println("Tempat tidak tersedia.")
 		return
 	}
-
 	// Proses Booking Venue
-
 	var booking waktuSewa
 	fmt.Println("Masukkan nama penyewa: ")
-	fmt.Scan(&booking.namaPenyewa)
+	fmt.Scan(&booking.namaPenyewa) // nama penyewa diambil dari username akun yang sudah terlogin
 	fmt.Println("Masukkan tanggal sewa (format: YYYYMMDD): ")
 	fmt.Scan(&booking.tanggal)
 	fmt.Println("Masukkan jam mulai (format 24 jam): ")
 	fmt.Scan(&booking.jamMulai)
 	fmt.Println("Masukkan jam selesai (format 24 jam): ")
-	fmt.Scan(&booking.jamSelesai)
-
+	fmt.Scan(&booking.jamSelesai) // input nya durasi
 	// Cek apakah tempat tersedia di waktu yang diminta
-
 	if isAvailable(dataTempat[currentIndexTempat], booking) {
 		dataTempat[currentIndexTempat].riwayatSewa = append(dataTempat[currentIndexTempat].riwayatSewa, booking)
 		fmt.Println("Tempat berhasil disewa.")
@@ -280,7 +303,6 @@ func fiturSewaTempat(dataTempat tabTempat, nDataTempat int) {
 		fmt.Println("Tempat tidak tersedia pada waktu yang diminta.")
 	}
 }
-
 func isAvailable(tempat iTempat, booking waktuSewa) bool {
 	for _, sewa := range tempat.riwayatSewa {
 		if sewa.tanggal == booking.tanggal {
@@ -294,4 +316,26 @@ func isAvailable(tempat iTempat, booking waktuSewa) bool {
 	return true
 }
 
-//Bikin Prossedure sewa tempat
+func menuPelanggan(dataTempat tabTempat, nDataTempat int, currentIndexAcc *int, currentUserClass *string) {
+	var userChoice int
+	fmt.Println("Menu utama, Silahkan ketik")
+	fmt.Println("1 untuk sewa tempat")
+	fmt.Println("2 untuk logout")
+	fmt.Print("Pilihan : ")
+	fmt.Scan(&userChoice)
+
+	if userChoice == 1 {
+		fiturSewaTempat(dataTempat, nDataTempat)
+	} else if userChoice == 2 {
+		Logout(currentIndexAcc, currentUserClass)
+	} else {
+		fmt.Println("Pilian tidak tersedia, silahkan ulangi.")
+		menuPelanggan(dataTempat, nDataTempat, currentIndexAcc, currentUserClass)
+	}
+}
+
+
+
+
+
+	
