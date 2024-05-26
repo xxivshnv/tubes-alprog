@@ -1,9 +1,9 @@
-tempat acara membutuhkan sistem manajemen yang efisien untuk mengelola da[ar tempat yang tersedia, melakukan pemesanan, dan melacak riwayat penyewaan.
+tempat acara membutuhkan sistem manajemen yang efisien untuk mengelola daftar tempat yang tersedia, melakukan pemesanan, dan melacak riwayat penyewaan.
 Sistem ini akan membantu perusahaan dalam mengatur jadwal, mengelola inventaris, dan menyediakan layanan yang opPmal kepada pelanggan.
 
 Fitur Utama:
-• Pendataan inventaris tempat acara yang tersedia. SePap
-  tempat acara memiliki informasi seperP nama tempat,
+• Pendataan inventaris tempat acara yang tersedia. Setiap
+  tempat acara memiliki informasi seperti nama tempat,
   lokasi, kapasitas maksimum, fasilitas yang tersedia, harga
   sewa per jam, dll.
 • Pencarian data tempat berdasarkan nama tempat atau
