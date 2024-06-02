@@ -368,6 +368,13 @@ func menuPelanggan(dataTempat *tabTempat, nDataTempat int, currentIndexAcc *int,
 }
 
 func fiturSewaTempat(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : dataTempat dan nDataTemppat menyimpan data tempat dan jumlah data tempat
+  		FS : user memberikan input nama, tanggal, waktu mulai penyewaan, durasi penyewaan
+
+  	
+ 	*/
+
 	var currentIndexTempat int
 	currentIndexTempat = cariTempat(dataTempat, nDataTempat)
 
@@ -402,6 +409,11 @@ func fiturSewaTempat(dataTempat *tabTempat, nDataTempat int) {
 	}
 }
 func isAvailable(tempat iTempat, booking waktuSewa) bool {
+	/*
+ 		IS : iTempat dan waktuSewa yang menyimpan index tempat dan waktu penyewaan
+ 		FS : bool yangm menyatakan ketersediaan fasilitas sebelum penyewaan berdasarkan jam mulai, durasi dan jam selesai
+ 	*/
+
 	for _, sewa := range tempat.riwayatSewa {
 		if sewa.tanggal == booking.tanggal {
 			if (booking.jamMulai >= sewa.jamMulai && booking.jamMulai < sewa.jamSelesai) ||
@@ -415,6 +427,10 @@ func isAvailable(tempat iTempat, booking waktuSewa) bool {
 }
 
 func tampilkanRiwayatSewa(tempat iTempat) {
+	/*
+ 		IS : iTempat menyimpan index tempat 
+   		FS : menampilan histori dari hasil input user ketika melakukan penyewaan
+ 	*/
 	fmt.Println("Riwayat Sewa untuk", tempat.namaTempat)
 	for _, sewa := range tempat.riwayatSewa {
 		fmt.Println("")
