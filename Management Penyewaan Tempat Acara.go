@@ -71,12 +71,6 @@ func testingPurpose(dataTempat *tabTempat, dataUser *tabUserAcc, nDataTempat *in
 	*nDataTempat = 3
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////
-////                                                                        LOGIN OR REGISTER FUNCTION
-////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 func main() {
 	var dataTempat tabTempat
 	var nDataTempat int
@@ -209,12 +203,6 @@ func Logout(currentIndexAcc *int, currentUserClass *string) {
 	*currentUserClass = "0"
 }
 
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ///                                                                                                                                         ////
-// //                                                       PUBLIC CLASS FUNCTION                                                              ////
-// //                                                                                                                                          ////
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 	/*
 			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
@@ -259,6 +247,11 @@ func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 }
 
 func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
+	/*
+			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+   				(menggunakan Sequential Search)
+	*/
 	var namaYangDicari string
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan nama tempat: ")
@@ -273,6 +266,11 @@ func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
+	/*
+			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+   				(menggunakan Binary Search)
+	*/
 	var lokasiYangDicari string
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan lokasi tempat : ")
@@ -294,6 +292,11 @@ func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
+	/*
+			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+   				(menggunakan Sequential Search)
+	*/
 	var kapasitasYangDicari int
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan kapasitas tempat : ")
@@ -308,6 +311,11 @@ func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganHarga(dataTempat tabTempat, nDataTempat int) int {
+	/*
+			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+   				(menggunakan Binary Search)
+	*/
 	var hargaYangDicari int
 	fmt.Print("Pencarian.")
 	fmt.Print("Masukan harga tempat : ")
@@ -326,12 +334,6 @@ func cariDenganHarga(dataTempat tabTempat, nDataTempat int) int {
 	}
 	return -1
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////
-////                                                                    PELANGGAN CLASS FUNCTION
-////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func menuPelanggan(dataTempat *tabTempat, nDataTempat int, currentIndexAcc *int, currentUserClass *string) {
 	/*
@@ -425,12 +427,6 @@ func tampilkanRiwayatSewa(tempat iTempat) {
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////
-////                                                      MANAJER CLASS FUNCTION
-////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 func menuManajer(dataTempat *tabTempat, nDataTempat *int, currentIndexAcc *int, currentUserClass *string) {
 	/*
 		IS : dataTempat berisi data tempat, nDataTempat berisi jumlah tempat, currentIndexAcc berisi index user saat ini
@@ -501,7 +497,7 @@ func fiturUbahDataTempat(dataTempat *tabTempat, nDataTempat int) {
 
 func menuUbahDataTempat(dataTempat tabTempat, indexTempat int) int {
 	/*
-		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
 		FS : menampilkan menu data yang ingin diubah, mengembalikan integer sesuai dengan input dari user
 	*/
 	var userChoice int
@@ -519,7 +515,7 @@ func menuUbahDataTempat(dataTempat tabTempat, indexTempat int) int {
 
 func UbahDataNamaTempat(dataTempat *tabTempat, indexTempat int) {
 	/*
-		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
 		FS : mengubah nilai dari namaTempat dari iTempat array ke indexTempat
 	*/
 	var namaBaru string
@@ -532,7 +528,7 @@ func UbahDataNamaTempat(dataTempat *tabTempat, indexTempat int) {
 
 func UbahDataLokasiTempat(dataTempat *tabTempat, indexTempat int) {
 	/*
-		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
 		FS : mengubah nilai dari lokasiTempat dari iTempat array ke indexTempat
 	*/
 	var lokasiBaru string
@@ -545,7 +541,7 @@ func UbahDataLokasiTempat(dataTempat *tabTempat, indexTempat int) {
 
 func UbahDataKapasitasTempat(dataTempat *tabTempat, indexTempat int) {
 	/*
-		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
 		FS : mengubah nilai dari kapasitasMaksimum dari iTempat array ke indexTempat
 	*/
 	var kapasitasBaru int
@@ -557,6 +553,10 @@ func UbahDataKapasitasTempat(dataTempat *tabTempat, indexTempat int) {
 }
 
 func UbahDataFasilitasTempat(dataTempat *tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
+		FS : mengubah nilai dari fasilitas dari iTempat array ke indexTempat
+	*/
 	var userChoice int = -1
 	var fasilitasBaru string
 	fmt.Println("Data fasilitas :")
@@ -579,6 +579,10 @@ func UbahDataFasilitasTempat(dataTempat *tabTempat, indexTempat int) {
 }
 
 func UbahDataHargaTempat(dataTempat *tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
+		FS : mengubah nilai dari hargaSewa dari iTempat array ke indexTempat
+	*/
 	var hargaBaru int
 	fmt.Print("Masukan harga baru : ")
 	fmt.Scan(&hargaBaru)
@@ -588,6 +592,10 @@ func UbahDataHargaTempat(dataTempat *tabTempat, indexTempat int) {
 }
 
 func cetakDataTempat(dataTempat tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan indexTemat berisi index dari tempat yang ingin diubah
+		FS : menampilkan data dari array dataTempat dengan index ke indexTempat
+	*/
 	fmt.Println("Nama Tempat :", dataTempat[indexTempat].namaTempat)
 	fmt.Println("Lokasi Tempat :", dataTempat[indexTempat].lokasiTempat)
 	fmt.Println("Kapasitas Maksimum :", dataTempat[indexTempat].kapasitasMaksimum)
@@ -605,6 +613,10 @@ func cetakDataTempat(dataTempat tabTempat, indexTempat int) {
 }
 
 func fiturTampilkanData(dataTempat tabTempat, nDataTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat yang berisi nilai banyaknya data dalam dataTempat
+		FS : menampilkan semua data di dataTempat dengan memanggil cetakData dengan loop
+	*/
 	for i := 0; i < nDataTempat; i++ {
 		fmt.Println("TEMPAT", i+1)
 		cetakDataTempat(dataTempat, i)
@@ -613,6 +625,10 @@ func fiturTampilkanData(dataTempat tabTempat, nDataTempat int) {
 }
 
 func fiturHapusDataTempat(dataTempat *tabTempat, nDataTempat *int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat yang berisi nilai banyaknya data dalam dataTempat
+		FS : menghapus data denga index sesuai pilihan user
+	*/
 	var indexTempat int
 	var userChoice string
 	fmt.Println("Silahkan cari tempat terlebih dahulu")
@@ -628,6 +644,10 @@ func fiturHapusDataTempat(dataTempat *tabTempat, nDataTempat *int) {
 }
 
 func hapusDataTempat(dataTempat *tabTempat, nDataTempat *int, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat yang berisi nilai banyaknya data dalam dataTempat, indexTempat yang berisi index dari tempat yang dipilih user
+		FS : memajukan index dari dataTempat mulai dari index indexTempat + 1, mengurangi nDataTempat dengan 1
+	*/
 	for i := indexTempat + 1; i < *nDataTempat; i++ {
 		dataTempat[i-1] = dataTempat[i]
 	}
@@ -637,6 +657,10 @@ func hapusDataTempat(dataTempat *tabTempat, nDataTempat *int, indexTempat int) {
 }
 
 func fiturUrutDataTempat(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : dataTempat terurut sesuai urutan pilihan user
+	*/
 	var userChoice int
 	fmt.Println("Fitur Tampilkan Data Terurut.")
 	userChoice = menuUrutDataTempat()
@@ -656,6 +680,10 @@ func fiturUrutDataTempat(dataTempat *tabTempat, nDataTempat int) {
 }
 
 func menuUrutDataTempat() int {
+	/*
+		IS : -
+		FS : mengembalikan userChoice yang berisi nilai masukan dari user sesuai pilihan metode urut
+	*/
 	var userChoice int
 	for userChoice < 1 || userChoice > 5 {
 		fmt.Println("Pilih metode urut data. Ketik : ")
@@ -677,6 +705,11 @@ func menuUrutDataTempat() int {
 }
 
 func urutDenganNama(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : 	dataTempat terurut Acending berdasarkan namaTempat
+  			(menggunakan Selection sort)
+	*/
 	var i, idx, pass int
 	var temp iTempat
 
@@ -695,6 +728,11 @@ func urutDenganNama(dataTempat *tabTempat, nDataTempat int) {
 }
 
 func urutDenganLokasi(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : 	dataTempat terurut Acending berdasarkan lokasiTempat
+  			(menggunakan Insertion sort)
+	*/
 	var i, pass int
 	var temp iTempat
 
@@ -711,6 +749,11 @@ func urutDenganLokasi(dataTempat *tabTempat, nDataTempat int) {
 }
 
 func urutDengaKapasitas(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : 	dataTempat terurut Acending berdasarkan kapasitasMaksimum
+  			(menggunakan Selection sort)
+	*/
 	var i, idx, pass int
 	var temp iTempat
 
@@ -729,6 +772,11 @@ func urutDengaKapasitas(dataTempat *tabTempat, nDataTempat int) {
 }
 
 func urutDenganHargaSewa(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : 	dataTempat terurut Acending berdasarkan hargaSewa
+  			(menggunakan Insertion sort)
+	*/
 	var i, pass int
 	var temp iTempat
 
