@@ -248,9 +248,9 @@ func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 
 func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
 	/*
-			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
-			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
-   				(menggunakan Sequential Search)
+					IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+					FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+		   				(menggunakan Sequential Search)
 	*/
 	var namaYangDicari string
 	fmt.Println("Pencarian.")
@@ -267,9 +267,9 @@ func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
 
 func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
 	/*
-			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
-			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
-   				(menggunakan Binary Search)
+					IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+					FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+		   				(menggunakan Binary Search)
 	*/
 	var lokasiYangDicari string
 	fmt.Println("Pencarian.")
@@ -293,9 +293,9 @@ func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
 
 func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
 	/*
-			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
-			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
-   				(menggunakan Sequential Search)
+					IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+					FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+		   				(menggunakan Sequential Search)
 	*/
 	var kapasitasYangDicari int
 	fmt.Println("Pencarian.")
@@ -312,9 +312,9 @@ func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
 
 func cariDenganHarga(dataTempat tabTempat, nDataTempat int) int {
 	/*
-			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
-			FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
-   				(menggunakan Binary Search)
+					IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
+					FS : 	mengembalikan index dari nama yang cocok denga yang user cari, mengembalikan -1 jika tidak ada yg cocok
+		   				(menggunakan Binary Search)
 	*/
 	var hargaYangDicari int
 	fmt.Print("Pencarian.")
@@ -706,9 +706,9 @@ func menuUrutDataTempat() int {
 
 func urutDenganNama(dataTempat *tabTempat, nDataTempat int) {
 	/*
-		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
-		FS : 	dataTempat terurut Acending berdasarkan namaTempat
-  			(menggunakan Selection sort)
+				IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+				FS : 	dataTempat terurut Acending berdasarkan namaTempat
+		  			(menggunakan Selection sort)
 	*/
 	var i, idx, pass int
 	var temp iTempat
@@ -729,9 +729,9 @@ func urutDenganNama(dataTempat *tabTempat, nDataTempat int) {
 
 func urutDenganLokasi(dataTempat *tabTempat, nDataTempat int) {
 	/*
-		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
-		FS : 	dataTempat terurut Acending berdasarkan lokasiTempat
-  			(menggunakan Insertion sort)
+				IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+				FS : 	dataTempat terurut Acending berdasarkan lokasiTempat
+		  			(menggunakan Insertion sort)
 	*/
 	var i, pass int
 	var temp iTempat
@@ -750,9 +750,9 @@ func urutDenganLokasi(dataTempat *tabTempat, nDataTempat int) {
 
 func urutDengaKapasitas(dataTempat *tabTempat, nDataTempat int) {
 	/*
-		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
-		FS : 	dataTempat terurut Acending berdasarkan kapasitasMaksimum
-  			(menggunakan Selection sort)
+				IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+				FS : 	dataTempat terurut Acending berdasarkan kapasitasMaksimum
+		  			(menggunakan Selection sort)
 	*/
 	var i, idx, pass int
 	var temp iTempat
@@ -773,9 +773,9 @@ func urutDengaKapasitas(dataTempat *tabTempat, nDataTempat int) {
 
 func urutDenganHargaSewa(dataTempat *tabTempat, nDataTempat int) {
 	/*
-		IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
-		FS : 	dataTempat terurut Acending berdasarkan hargaSewa
-  			(menggunakan Insertion sort)
+				IS : 	dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+				FS : 	dataTempat terurut Acending berdasarkan hargaSewa
+		  			(menggunakan Insertion sort)
 	*/
 	var i, pass int
 	var temp iTempat
