@@ -234,7 +234,7 @@ func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 		fmt.Scan(&userChoice)
 		fmt.Println("")
 
-		switch userChoice { // ganti if else biasa
+		switch userChoice { 
 		case 1:
 			indexTempat = cariDenganNama(*dataTempat, nDataTempat)
 		case 2:
@@ -259,6 +259,11 @@ func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 }
 
 func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
+	/*
+		IS : variabel dataTempat dan nDataTempat menyimpan data tempat dan jumlah dari data tempat
+  		FS : user memilih opsi mencari tempat dengan Nama, user memasukan input nama tempat sesuai yang terdapat di dataTempat
+ 
+ 	*/
 	var namaYangDicari string
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan nama tempat: ")
@@ -273,6 +278,11 @@ func cariDenganNama(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
+	/*
+		IS : dataTempat dan nDatatempat menyimpan data tempat dan jumlah dari data tempat
+  		FS : user mencari tempat dengan opsi lokasi sesuai dengan lokasi yang dituju user
+
+ 	*/
 	var lokasiYangDicari string
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan lokasi tempat : ")
@@ -294,6 +304,11 @@ func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
+	/*
+		IS : dataTempat dan nDataTempat menyimpan data tempat dan jumlah data dari tempat
+  		FS : user mencari tempat dengan opsi kapasitas, user dapat menyesuaikan jumlah kapasitas yang dibutuhkan dalam mencari fasilitas
+  
+ 	*/
 	var kapasitasYangDicari int
 	fmt.Println("Pencarian.")
 	fmt.Print("Masukan kapasitas tempat : ")
@@ -308,6 +323,10 @@ func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
 }
 
 func cariDenganHarga(dataTempat tabTempat, nDataTempat int) int {
+	/*
+ 		IS : dataTempat dan nDataTempat menyimpan data tempat dan jumlah data tempat 
+   		FS : user mencari tempat dengan opsi harga, user dapat memberikan input berdasarkan harga yang diinginkan
+ 	*/
 	var hargaYangDicari int
 	fmt.Print("Pencarian.")
 	fmt.Print("Masukan harga tempat : ")
@@ -366,6 +385,12 @@ func menuPelanggan(dataTempat *tabTempat, nDataTempat int, currentIndexAcc *int,
 }
 
 func fiturSewaTempat(dataTempat *tabTempat, nDataTempat int) {
+	/*
+		IS : dataTempat dan nDataTemppat menyimpan data tempat dan jumlah data tempat
+  		FS : user memberikan input nama, tanggal, waktu mulai penyewaan, durasi penyewaan
+
+  	
+ 	*/
 	var currentIndexTempat int
 	currentIndexTempat = cariTempat(dataTempat, nDataTempat)
 
@@ -400,6 +425,9 @@ func fiturSewaTempat(dataTempat *tabTempat, nDataTempat int) {
 	}
 }
 func isAvailable(tempat iTempat, booking waktuSewa) bool {
+	/*
+ 		cek ketersediaan fasilitas sebelum penyewaan berdasarkan jam mulai, durasi dan jam selesai
+ 	*/
 	for _, sewa := range tempat.riwayatSewa {
 		if sewa.tanggal == booking.tanggal {
 			if (booking.jamMulai >= sewa.jamMulai && booking.jamMulai < sewa.jamSelesai) ||
