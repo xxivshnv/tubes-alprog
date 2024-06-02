@@ -44,26 +44,26 @@ func testingPurpose(dataTempat *tabTempat, dataUser *tabUserAcc, nDataTempat *in
 	}
 	*nDataUser = 2 // Corrected parameter
 	dataTempat[0] = iTempat{
-		namaTempat:        "hotel indonesia",
-		lokasiTempat:      "jakarta",
+		namaTempat:        "gwk",
+		lokasiTempat:      "bali",
 		kapasitasMaksimum: 100,
-		fasilitas:         []string{"Wifi", "AC"},
+		fasilitas:         []string{"taman", "kantin"},
 		hargaSewa:         1000000,
 		riwayatSewa:       []waktuSewa{},
 	}
 	dataTempat[1] = iTempat{
-		namaTempat:        "gelora bung karno",
+		namaTempat:        "gbk",
 		lokasiTempat:      "jakarta",
 		kapasitasMaksimum: 200,
-		fasilitas:         []string{"Proyektor", "AC"},
+		fasilitas:         []string{"lapangan bola", "lapangan basket"},
 		hargaSewa:         2000000,
 		riwayatSewa:       []waktuSewa{},
 	}
 	dataTempat[2] = iTempat{
-		namaTempat:        "kebun raya bogor",
-		lokasiTempat:      "bogor",
+		namaTempat:        "borobudur",
+		lokasiTempat:      "magelang",
 		kapasitasMaksimum: 400,
-		fasilitas:         []string{"kantin", "sungai"},
+		fasilitas:         []string{"kantin", "taman"},
 		hargaSewa:         1500000,
 		riwayatSewa:       []waktuSewa{},
 	}
@@ -88,12 +88,12 @@ func main() {
 	var currentUserClass string // user class dari akun yang sedang dipakai "manajer" OR "pelanggan"
 	var currentIndexAcc int     // index dari akun yang sedang dipakai
 
-	mainMenu(&dataUser, &nDataUser, &currentUserClass, &currentIndexAcc)
+	mainMenu(&dataTempat, &nDataTempat, &dataUser, &nDataUser, &currentUserClass, &currentIndexAcc)
 }
 
 // PUBLIC's FUNCTION START HERE
 
-func mainMenu(dataUser *tabUserAcc, nDataUser *int, currentUserClass *string, currentIndexAcc *int) {
+func mainMenu(dataTempat *tabTempat, nDataTempat *int, dataUser *tabUserAcc, nDataUser *int, currentUserClass *string, currentIndexAcc *int) {
 	/*
 		 	IS : 	-
 			FS : 	Mengembalikan string "login" atau "register" atau Keluar program sesuai dengan pilihan user ketika mengisi variable userChoice
