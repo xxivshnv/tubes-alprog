@@ -21,6 +21,7 @@ type waktuSewa struct {
 	tanggal     int
 	jamMulai    int
 	jamSelesai  int
+	totalBiaya  int
 }
 
 type tabUserAcc [NMAX]userAcc
@@ -100,7 +101,7 @@ func mainMenu(dataTempat *tabTempat, nDataTempat *int, dataUser *tabUserAcc, nDa
 	*/
 	var userChoice int = 0
 	for userChoice != 3 {
-		fmt.Println("Masukan angka :")
+		fmt.Println("Menu utama, silahkan masukan angka :")
 		fmt.Println("1 untuk login")
 		fmt.Println("2 untuk daftar")
 		fmt.Println("3 untuk keluar program")
@@ -109,10 +110,8 @@ func mainMenu(dataTempat *tabTempat, nDataTempat *int, dataUser *tabUserAcc, nDa
 		fmt.Println("")
 		if userChoice == 1 {
 			login(*dataUser, *nDataUser, currentUserClass, currentIndexAcc)
-			break
 		} else if userChoice == 2 {
 			register(dataUser, nDataUser, currentUserClass, currentIndexAcc)
-			break
 		} else if userChoice == 3 {
 			*currentIndexAcc = -1
 			*currentUserClass = "0"
@@ -120,16 +119,15 @@ func mainMenu(dataTempat *tabTempat, nDataTempat *int, dataUser *tabUserAcc, nDa
 		} else {
 			fmt.Println("\npilihan tidak tersedia, silahkan ulangi.")
 		}
-	}
-	//Test the connected account
-	if userChoice == 1 || userChoice == 2 {
-		if *currentUserClass == "pelanggan" {
-			menuPelanggan(*dataTempat, *nDataTempat, currentIndexAcc, currentUserClass)
-		} else if *currentUserClass == "manajer" {
-			menuManajer(dataTempat, nDataTempat, currentIndexAcc, currentUserClass)
+
+		if userChoice == 1 || userChoice == 2 {
+			if *currentUserClass == "pelanggan" {
+				menuPelanggan(dataTempat, *nDataTempat, currentIndexAcc, currentUserClass)
+			} else if *currentUserClass == "manajer" {
+				menuManajer(dataTempat, nDataTempat, currentIndexAcc, currentUserClass)
+			}
 		}
 	}
-
 }
 
 func login(dataUser tabUserAcc, nDataUser int, currentUserClass *string, currentIndexAcc *int) {
@@ -151,7 +149,7 @@ func login(dataUser tabUserAcc, nDataUser int, currentUserClass *string, current
 			*currentUserClass = dataUser[i].userClass
 			*currentIndexAcc = i
 			found = true
-			fmt.Print("Akun berhasil login")
+			fmt.Println("Akun berhasil login")
 			break
 		}
 	}
@@ -159,6 +157,7 @@ func login(dataUser tabUserAcc, nDataUser int, currentUserClass *string, current
 		fmt.Println("\n\nAkun tidak ditemukan. Silahkan ulangi.")
 		login(dataUser, nDataUser, currentUserClass, currentIndexAcc)
 	}
+	fmt.Println("")
 }
 
 func register(dataUser *tabUserAcc, nDataUser *int, currentUserClass *string, currentIndexAcc *int) {
@@ -196,6 +195,7 @@ func register(dataUser *tabUserAcc, nDataUser *int, currentUserClass *string, cu
 		*currentUserClass = newUser.userClass
 		*currentIndexAcc = *nDataUser - 1
 		fmt.Println("Akun berhasil register")
+		fmt.Println("")
 	}
 }
 
@@ -215,7 +215,7 @@ func Logout(currentIndexAcc *int, currentUserClass *string) {
 // //                                                                                                                                          ////
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func cariTempat(dataTempat tabTempat, nDataTempat int) int {
+func cariTempat(dataTempat *tabTempat, nDataTempat int) int {
 	/*
 			IS :	variabel dataTempat dan nDataTempat yang menyimpan datar tempat dan jumlah tempat
 			FS : 	memanggil fungsi cariDenganNama atau cariDenganLokasi atau cariDenganTempat berdasarkan pilihan user dan menyimpan kedalam hasil fungsi kedalam variabel indexTempat
@@ -229,17 +229,22 @@ func cariTempat(dataTempat tabTempat, nDataTempat int) int {
 		fmt.Println("1 untuk mencari dengan nama")
 		fmt.Println("2 untuk mencari dengan lokasi")
 		fmt.Println("3 untuk mencari dengan kapasitas")
+		fmt.Println("4 untuk mencari dengan harga sewa")
 		fmt.Print("masukan pilihan anda : ")
 		fmt.Scan(&userChoice)
 		fmt.Println("")
 
 		switch userChoice { // ganti if else biasa
 		case 1:
-			indexTempat = cariDenganNama(dataTempat, nDataTempat)
+			indexTempat = cariDenganNama(*dataTempat, nDataTempat)
 		case 2:
-			indexTempat = cariDenganLokasi(dataTempat, nDataTempat)
+			urutDenganLokasi(dataTempat, nDataTempat)
+			indexTempat = cariDenganLokasi(*dataTempat, nDataTempat)
 		case 3:
-			indexTempat = cariDenganKapasitas(dataTempat, nDataTempat)
+			indexTempat = cariDenganKapasitas(*dataTempat, nDataTempat)
+		case 4:
+			urutDenganHargaSewa(dataTempat, nDataTempat)
+			indexTempat = cariDenganHarga(*dataTempat, nDataTempat)
 		default:
 			fmt.Println("Pilihan tidak tersedia. silahkan pilih ulang.")
 			return cariTempat(dataTempat, nDataTempat)
@@ -273,9 +278,16 @@ func cariDenganLokasi(dataTempat tabTempat, nDataTempat int) int {
 	fmt.Print("Masukan lokasi tempat : ")
 	fmt.Scan(&lokasiYangDicari)
 	fmt.Println("")
-	for i := 0; i < nDataTempat; i++ {
-		if lokasiYangDicari == dataTempat[i].lokasiTempat {
-			return i
+
+	L, R := 0, nDataTempat-1
+	for L <= R {
+		mid := (L + R) / 2
+		if dataTempat[mid].lokasiTempat < lokasiYangDicari {
+			L = mid + 1
+		} else if dataTempat[mid].lokasiTempat > lokasiYangDicari {
+			R = mid - 1
+		} else {
+			return mid
 		}
 	}
 	return -1
@@ -295,13 +307,33 @@ func cariDenganKapasitas(dataTempat tabTempat, nDataTempat int) int {
 	return -1
 }
 
+func cariDenganHarga(dataTempat tabTempat, nDataTempat int) int {
+	var hargaYangDicari int
+	fmt.Print("Pencarian.")
+	fmt.Print("Masukan harga tempat : ")
+	fmt.Scan(&hargaYangDicari)
+	fmt.Println("")
+	L, R := 0, nDataTempat-1
+	for L <= R {
+		mid := (L + R) / 2
+		if dataTempat[mid].hargaSewa < hargaYangDicari {
+			L = mid + 1
+		} else if dataTempat[mid].hargaSewa > hargaYangDicari {
+			R = mid - 1
+		} else {
+			return mid
+		}
+	}
+	return -1
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////
 ////                                                                    PELANGGAN CLASS FUNCTION
 ////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-func menuPelanggan(dataTempat tabTempat, nDataTempat int, currentIndexAcc *int, currentUserClass *string) {
+func menuPelanggan(dataTempat *tabTempat, nDataTempat int, currentIndexAcc *int, currentUserClass *string) {
 	/*
 
 		IS : variabel data tempat,nDataTempat,currentindexAcc dan currentuserClass menyimpan data tempat, jumlah data tempat, index akun user saat ini dan class user
@@ -312,7 +344,7 @@ func menuPelanggan(dataTempat tabTempat, nDataTempat int, currentIndexAcc *int, 
 	var userChoice int = 0
 
 	for userChoice != 2 {
-		fmt.Println("Menu utama, Silahkan ketik")
+		fmt.Println("Menu utama pelanggan, Silahkan ketik")
 		fmt.Println("1 untuk sewa tempat")
 		fmt.Println("2 untuk keluar")
 		fmt.Print("Pilihan : ")
@@ -323,15 +355,17 @@ func menuPelanggan(dataTempat tabTempat, nDataTempat int, currentIndexAcc *int, 
 			fiturSewaTempat(dataTempat, nDataTempat)
 		} else if userChoice == 2 {
 			Logout(currentIndexAcc, currentUserClass)
-			fmt.Print("Berhasil keluar")
+			fmt.Println("Berhasil keluar")
+			fmt.Println("")
 		} else {
 			fmt.Println("Pilihan tidak tersedia, silahkan ulangi.")
 			//menuPelanggan(dataTempat, nDataTempat, currentIndexAcc, currentUserClass) --> jika dipanggil dalam loop, tidak perlu dibuat rekrusif
 		}
+
 	}
 }
 
-func fiturSewaTempat(dataTempat tabTempat, nDataTempat int) {
+func fiturSewaTempat(dataTempat *tabTempat, nDataTempat int) {
 	var currentIndexTempat int
 	currentIndexTempat = cariTempat(dataTempat, nDataTempat)
 
@@ -341,21 +375,28 @@ func fiturSewaTempat(dataTempat tabTempat, nDataTempat int) {
 	}
 	// Proses Booking Venue
 	var booking waktuSewa
-	fmt.Println("Masukkan nama penyewa: ")
+	var durasi int
+
+	fmt.Print("Masukkan nama penyewa: ")
 	fmt.Scan(&booking.namaPenyewa) // nama penyewa diambil dari username akun yang sudah terlogin
-	fmt.Println("Masukkan tanggal sewa (format: YYYYMMDD): ")
+	fmt.Print("Masukkan tanggal sewa (format: YYYYMMDD): ")
 	fmt.Scan(&booking.tanggal)
-	fmt.Println("Masukkan jam mulai (format 24 jam): ")
+	fmt.Print("Masukkan jam mulai (format 24 jam): ")
 	fmt.Scan(&booking.jamMulai)
-	fmt.Println("Masukkan jam selesai (format 24 jam): ")
-	fmt.Scan(&booking.jamSelesai) // input nya durasi
+	fmt.Print("Masukkan durasi sewa (dalam jam): ")
+	fmt.Scan(&durasi) // input nya durasi
+	booking.jamSelesai = booking.jamMulai + durasi
+	booking.totalBiaya = durasi * dataTempat[currentIndexTempat].hargaSewa
 
 	// Cek apakah tempat tersedia di waktu yang diminta
 	if isAvailable(dataTempat[currentIndexTempat], booking) {
 		dataTempat[currentIndexTempat].riwayatSewa = append(dataTempat[currentIndexTempat].riwayatSewa, booking)
 		fmt.Println("Tempat berhasil disewa.")
+		fmt.Println("")
+		tampilkanRiwayatSewa(dataTempat[currentIndexTempat])
 	} else {
 		fmt.Println("Tempat tidak tersedia pada waktu yang diminta.")
+		fmt.Println("")
 	}
 }
 func isAvailable(tempat iTempat, booking waktuSewa) bool {
@@ -374,8 +415,13 @@ func isAvailable(tempat iTempat, booking waktuSewa) bool {
 func tampilkanRiwayatSewa(tempat iTempat) {
 	fmt.Println("Riwayat Sewa untuk", tempat.namaTempat)
 	for _, sewa := range tempat.riwayatSewa {
-		fmt.Printf("Nama Penyewa: %s, Tanggal: %d, Jam Mulai: %d, Jam Selesai: %d\n",
-			sewa.namaPenyewa, sewa.tanggal, sewa.jamMulai, sewa.jamSelesai)
+		fmt.Println("")
+		fmt.Printf("Nama Penyewa: %s\n", sewa.namaPenyewa)
+		fmt.Printf("Tanggal : %d\n", sewa.tanggal)
+		fmt.Printf("Jam mulai : %d\n", sewa.jamMulai)
+		fmt.Printf("Jam Selesai : %d\n", sewa.jamSelesai)
+		fmt.Printf("Total biaya : %d\n", sewa.totalBiaya)
+		fmt.Println("")
 	}
 }
 
@@ -387,18 +433,14 @@ func tampilkanRiwayatSewa(tempat iTempat) {
 
 func menuManajer(dataTempat *tabTempat, nDataTempat *int, currentIndexAcc *int, currentUserClass *string) {
 	/*
-
 		IS : dataTempat berisi data tempat, nDataTempat berisi jumlah tempat, currentIndexAcc berisi index user saat ini
 		currentUserClass berisi class dari user
 		FS : opsi selanjutnya bergantung pada jawabab yang dipilih user antara menampilkan data terurut, merubah data tempat,
 		menghapus data tempat atau logout dari menu
-
-
-
 	*/
 	var userChoice int = 0
 	for userChoice != 4 {
-		fmt.Println("Menu utama, Silahkan ketik")
+		fmt.Println("Menu utama manajer, Silahkan ketik")
 		fmt.Println("1 untuk menampilkan data terurut")
 		fmt.Println("2 untuk merubah data tempat")
 		fmt.Println("3 untuk menghapus data tempat")
@@ -417,7 +459,8 @@ func menuManajer(dataTempat *tabTempat, nDataTempat *int, currentIndexAcc *int, 
 			fiturHapusDataTempat(dataTempat, nDataTempat)
 		} else if userChoice == 4 {
 			Logout(currentIndexAcc, currentUserClass)
-			fmt.Print("Berhasil keluar")
+			fmt.Println("Berhasil keluar")
+			fmt.Println("")
 		} else {
 			fmt.Println("Pilian tidak tersedia, silahkan ulangi.")
 		}
@@ -427,16 +470,12 @@ func menuManajer(dataTempat *tabTempat, nDataTempat *int, currentIndexAcc *int, 
 
 func fiturUbahDataTempat(dataTempat *tabTempat, nDataTempat int) {
 	/*
-
 		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
-		FS :
-
-
-
+		FS : mengubah data tempat pilihan user, dengan data baru yang diinput user
 	*/
 	var indexTempat, userChoice int
 	fmt.Println("Silahkan cari tempat terlebih dahulu")
-	indexTempat = cariTempat(*dataTempat, nDataTempat)
+	indexTempat = cariTempat(dataTempat, nDataTempat)
 
 	for userChoice < 1 || userChoice > 5 {
 		userChoice = menuUbahDataTempat(*dataTempat, indexTempat)
@@ -461,6 +500,10 @@ func fiturUbahDataTempat(dataTempat *tabTempat, nDataTempat int) {
 }
 
 func menuUbahDataTempat(dataTempat tabTempat, indexTempat int) int {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : menampilkan menu data yang ingin diubah, mengembalikan integer sesuai dengan input dari user
+	*/
 	var userChoice int
 	fmt.Printf("Apa yang ingin anda ubah dari data tempat %s? Ketik\n", dataTempat[indexTempat].namaTempat)
 	fmt.Println("1 untuk ubah nama tempat")
@@ -475,6 +518,10 @@ func menuUbahDataTempat(dataTempat tabTempat, indexTempat int) int {
 }
 
 func UbahDataNamaTempat(dataTempat *tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : mengubah nilai dari namaTempat dari iTempat array ke indexTempat
+	*/
 	var namaBaru string
 	fmt.Print("Masukan nama baru : ")
 	fmt.Scan(&namaBaru)
@@ -484,6 +531,10 @@ func UbahDataNamaTempat(dataTempat *tabTempat, indexTempat int) {
 }
 
 func UbahDataLokasiTempat(dataTempat *tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : mengubah nilai dari lokasiTempat dari iTempat array ke indexTempat
+	*/
 	var lokasiBaru string
 	fmt.Print("Masukan lokasi baru : ")
 	fmt.Scan(&lokasiBaru)
@@ -493,6 +544,10 @@ func UbahDataLokasiTempat(dataTempat *tabTempat, indexTempat int) {
 }
 
 func UbahDataKapasitasTempat(dataTempat *tabTempat, indexTempat int) {
+	/*
+		IS : dataTempat berisi data tempat dan nDataTempat berisi jumlah data tempat
+		FS : mengubah nilai dari kapasitasMaksimum dari iTempat array ke indexTempat
+	*/
 	var kapasitasBaru int
 	fmt.Print("Masukan kapasitas baru : ")
 	fmt.Scan(&kapasitasBaru)
@@ -561,7 +616,7 @@ func fiturHapusDataTempat(dataTempat *tabTempat, nDataTempat *int) {
 	var indexTempat int
 	var userChoice string
 	fmt.Println("Silahkan cari tempat terlebih dahulu")
-	indexTempat = cariTempat(*dataTempat, *nDataTempat)
+	indexTempat = cariTempat(dataTempat, *nDataTempat)
 	cetakDataTempat(*dataTempat, indexTempat)
 	fmt.Print("Lanjut menghapus data diatas (y/n) ? ")
 	fmt.Scan(&userChoice)
